@@ -7,6 +7,14 @@
   const tags = (t) => (t && t.length ? `<ul class="tags">${t.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : "");
   const bullets = (b) => (b && b.length ? `<ul class="bullets">${b.map((x) => `<li>${x}</li>`).join("")}</ul>` : "");
   const btnLinks = (l) => (l && l.length ? `<div class="links">${l.map(([t, u]) => ext(u, t, "btn btn-ghost btn-sm")).join("")}</div>` : "");
+  const mark = (e, base) => e.logo
+    ? `<span class="mark mark-logo" style="${e.logoBg ? `--logo-bg:${e.logoBg}` : ""}"><img src="${base}${e.logo}" alt="${esc(e.org)} logo" loading="lazy" /></span>`
+    : `<span class="mark">${e.mark || esc(e.org.slice(0, 2))}</span>`;
+  const COURSE_IC = {
+    llm: '<path d="M8 10h22a6 6 0 0 1 6 6v8a6 6 0 0 1-6 6H18l-7 6v-6H8a6 6 0 0 1-6-6v-8a6 6 0 0 1 6-6z"/><path d="M11 20h2M18 20h2M25 20h2"/>',
+    ml: '<circle cx="7" cy="12" r="3"/><circle cx="7" cy="28" r="3"/><circle cx="20" cy="8" r="3"/><circle cx="20" cy="20" r="3"/><circle cx="20" cy="32" r="3"/><circle cx="33" cy="20" r="3"/><path d="M10 12l7-3M10 12l7 8M10 28l7-8M10 28l7 4M23 8l7 11M23 20h7M23 32l7-11"/>',
+    chip: '<rect x="10" y="10" width="20" height="20" rx="3"/><rect x="15" y="15" width="10" height="10" rx="1"/><path d="M15 4v6M20 4v6M25 4v6M15 30v6M20 30v6M25 30v6M4 15h6M4 20h6M4 25h6M30 15h6M30 20h6M30 25h6"/>',
+  };
   const org = (name, url) => (url ? ext(url, `${esc(name)} ↗`, "org-link") : `<span class="org-link">${esc(name)}</span>`);
 
   const ICONS = {
@@ -93,13 +101,16 @@
       </article>`).join("");
     },
 
-    experience() {
+    experience(c) {
       return `<div class="entries">${S.experience.map((e) => `
-      <article class="entry xp">
-        <span class="mark">${e.mark}</span>
+      <article class="entry xp${e.courses ? " xp-ta" : ""}">
+        ${mark(e, c.base)}
         <div class="entry-body">
           <header><div><h3>${e.role}</h3><p class="org">${org(e.org, e.orgUrl)}</p></div><span class="dates">${e.dates}</span></header>
-          ${e.courses ? `<ul class="courses">${e.courses.map(([t, n]) => `<li><span>${t}</span><b>${n}</b></li>`).join("")}</ul>` : ""}
+          ${e.courses ? `
+          <p class="ta-count"><b>${e.courses.length}</b> courses <span>·</span> <b>${new Set(e.courses.map((x) => x[0])).size}</b> semesters</p>
+          <ul class="courses">${e.courses.map(([t, n, ic]) => `
+            <li><svg viewBox="0 0 40 40" class="course-ic" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${COURSE_IC[ic] || ""}</svg><span>${t}</span><b>${n}</b></li>`).join("")}</ul>` : ""}
           ${bullets(e.bullets)}${tags(e.tags)}${btnLinks(e.links)}
         </div>
       </article>`).join("")}</div>`;
@@ -119,13 +130,14 @@
       </article>`).join("")}</div>`;
     },
 
-    leadership() {
+    leadership(c) {
       return `<div class="lead-grid">${S.leadership.map((l) => `
-      <article class="entry lead">
-        <p class="dates">${l.dates}</p>
-        <h3>${l.role}</h3>
-        <p class="org">${org(l.org, l.orgUrl)}</p>
-        ${bullets(l.bullets)}${tags(l.tags)}${btnLinks(l.links)}
+      <article class="entry lead xp">
+        ${mark(l, c.base)}
+        <div class="entry-body">
+          <header><div><h3>${l.role}</h3><p class="org">${org(l.org, l.orgUrl)}</p></div><span class="dates">${l.dates}</span></header>
+          ${bullets(l.bullets)}${tags(l.tags)}${btnLinks(l.links)}
+        </div>
       </article>`).join("")}</div>`;
     },
 

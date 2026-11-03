@@ -65,6 +65,7 @@ window.SITE = {
       orgUrl: "https://www.zetachain.com",
       dates: "May 2025 – July 2025",
       mark: "Z",
+      logo: "assets/img/logos/zetachain.png",
       bullets: [
         "Cut distributed Node.js API latency <b>56%</b> with cross-chain RPC batching, Redis caching, and PostgreSQL query optimization.",
         "Reduced schema errors <b>25%</b>, saving 20+ debugging hours/week, with reusable Zod/TypeScript validation across 20K+ LOC.",
@@ -80,7 +81,8 @@ window.SITE = {
       orgUrl: "https://www.cs.cornell.edu",
       dates: "Spring 2026 – Present",
       mark: "TA",
-      courses: [["SP26", "Large Language Models"], ["FA26", "Machine Learning"], ["FA26", "Embedded Systems"]],
+      logo: "assets/img/logos/cornell.png",
+      courses: [["Spring 2026", "Large Language Models", "llm"], ["Fall 2026", "Machine Learning", "ml"], ["Fall 2026", "Embedded Systems", "chip"]],
     },
   ],
 
@@ -149,6 +151,8 @@ window.SITE = {
       role: "Director of Data & Infrastructure",
       org: "Cornell Algorithmic Trading Club",
       orgUrl: "https://www.cornellalgo.com",
+      logo: "assets/img/logos/cornell-algo.png",
+      logoBg: "#141418",
       dates: "January 2026 – Present",
       bullets: [
         "Lead AWS/GCP cloud infrastructure for <b>20+ researchers</b> and a <b>$150K fund</b>, serving REST APIs and shared data services.",
@@ -163,6 +167,7 @@ window.SITE = {
       role: "Full-Stack Engineer & Recruitment Lead",
       org: "Cornell Blockchain",
       orgUrl: "https://www.cornellblockchain.org",
+      logo: "assets/img/logos/cornell-blockchain.png",
       dates: "September 2024 – Present",
       bullets: [
         "Led <b>5 engineers</b> through sprint planning, API design, and PR reviews to ship a React/Next.js web and mobile gig marketplace.",
