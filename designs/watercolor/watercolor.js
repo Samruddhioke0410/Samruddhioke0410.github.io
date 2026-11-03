@@ -4,7 +4,7 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const S = window.SITE;
-  const BASE = "../../";
+  const BASE = document.documentElement.dataset.base ?? "../../";
   const dark = () => document.documentElement.dataset.theme === "dark";
   const cssVar = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
   const PIG = ["--p1", "--p2", "--p3", "--p4", "--p5", "--p6", "--p7"];
