@@ -125,7 +125,7 @@
         <p class="dates">${l.dates}</p>
         <h3>${l.role}</h3>
         <p class="org">${org(l.org, l.orgUrl)}</p>
-        ${bullets(l.bullets)}${tags(l.tags)}
+        ${bullets(l.bullets)}${tags(l.tags)}${btnLinks(l.links)}
       </article>`).join("")}</div>`;
     },
 

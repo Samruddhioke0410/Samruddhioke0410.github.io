@@ -72,6 +72,7 @@ window.SITE = {
         "Expanded automated testing to <b>90% coverage</b> and Dockerized Go services on Linux, reducing CI/CD failures by 30%.",
       ],
       tags: ["Node.js", "TypeScript", "Go", "Redis", "PostgreSQL", "Docker", "MCP"],
+      links: [["zetachain.com ↗", "https://www.zetachain.com/"]],
     },
     {
       role: "Teaching Assistant",
@@ -156,6 +157,7 @@ window.SITE = {
         "Standardized PR review, testing, data versioning, AWS access controls, and runbooks across shared infrastructure.",
       ],
       tags: ["AWS", "GCP", "TensorFlow", "scikit-learn", "PostgreSQL", "Firebase"],
+      links: [["cornellalgo.com ↗", "https://www.cornellalgo.com/"]],
     },
     {
       role: "Full-Stack Engineer & Recruitment Lead",
@@ -167,6 +169,7 @@ window.SITE = {
         "Developed async FastAPI services (SQLAlchemy pooling, PostgreSQL) sustaining <b>10K+ concurrent requests</b> in load tests.",
       ],
       tags: ["React", "Next.js", "FastAPI", "SQLAlchemy", "PostgreSQL"],
+      links: [["cornellblockchain.org ↗", "https://www.cornellblockchain.org"]],
     },
   ],
 

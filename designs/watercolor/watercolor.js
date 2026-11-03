@@ -429,6 +429,7 @@
     timers.push(setTimeout(() => {
       splash(drum, at);
       stage.classList.remove("thump"); void stage.offsetWidth; stage.classList.add("thump");
+      if (drum === "kick" && playing) { scenesEl.classList.remove("kick"); void scenesEl.offsetWidth; scenesEl.classList.add("kick"); }
     }, Math.max(0, (t - a.currentTime) * 1000)));
   }
 
@@ -463,7 +464,8 @@
       next = Math.max(next, ac.currentTime + 0.05);
       const t0 = next;
       BAR.forEach((hits, i) => hits.forEach((d) => { if (d !== "crash" || bar % 2 === 0) hit(d, t0 + i * step); }));
-      if (bar > 0) timers.push(setTimeout(() => playing && showScene(sceneIdx + 1), LEAD));
+      // a new painting on every half bar
+      [LEAD, LEAD + barMs / 2].forEach((ms, k) => { if (bar > 0 || k > 0) timers.push(setTimeout(() => playing && showScene(sceneIdx + 1), ms)); });
       bar++; next += BAR.length * step;
       timers = timers.slice(-40);
       barTimer = setTimeout(scheduleBar, bar === 1 ? barMs - LEAD : barMs);
@@ -471,7 +473,7 @@
     scheduleBar();
   }
   function stop() {
-    playing = false; groove.classList.remove("on"); scenesEl.classList.remove("fast");
+    playing = false; groove.classList.remove("on"); scenesEl.classList.remove("fast", "kick");
     clearTimeout(barTimer); autoScenes();
     $(".g-ic", groove).textContent = "▶"; $(".g-tx", groove).textContent = "Play a groove";
     timers.forEach(clearTimeout); timers = [];
