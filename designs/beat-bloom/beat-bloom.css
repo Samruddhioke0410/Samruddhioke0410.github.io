@@ -98,11 +98,6 @@ kbd { font-family: var(--font-mono); font-size: .66rem; padding: 2px 6px; border
   radial-gradient(ellipse at 40% 40%, color-mix(in srgb, var(--p2) 26%, transparent), transparent 60%),
   radial-gradient(ellipse at 70% 75%, color-mix(in srgb, var(--p3) 20%, transparent), transparent 55%), var(--bg-2); }
 .research-main h3 { font-weight: 400; font-size: clamp(1.8rem, 3.4vw, 2.5rem); }
-.trail::before { height: 3px; border-radius: 3px; background: linear-gradient(90deg, var(--p1), var(--p4), var(--p3), var(--p2), var(--p5)); opacity: .55; }
-.trail li::before { border: 0; border-radius: 55% 45% 60% 40% / 50% 60% 40% 50%; background: var(--p2); opacity: .85; }
-.trail li:nth-child(5n+1)::before { background: var(--p1); } .trail li:nth-child(5n+2)::before { background: var(--p4); }
-.trail li:nth-child(5n+3)::before { background: var(--p3); } .trail li:nth-child(5n+4)::before { background: var(--p2); }
-.trail li.now::before { background: var(--p5); box-shadow: 0 0 0 6px color-mix(in srgb, var(--p5) 25%, transparent); }
 .skill { border: 0; box-shadow: 0 0 0 1px var(--line); }
 .skill:hover { box-shadow: 0 0 0 2px var(--accent); }
 .interest { border: 0; box-shadow: 0 0 0 1px var(--line); position: relative; overflow: hidden; }

@@ -116,12 +116,6 @@ body { background-image: radial-gradient(color-mix(in srgb, var(--fg) 9%, transp
 .project:nth-child(4n+1) { --accent: var(--g); } .project:nth-child(4n+2) { --accent: var(--r); }
 .project:nth-child(4n+3) { --accent: var(--b); } .project:nth-child(4n+4) { --accent: var(--o); }
 .research-media { border-left: 2px solid var(--line); background: color-mix(in srgb, var(--b) 10%, var(--bg)); }
-.trail::before { background: var(--fg); height: 3px; }
-.trail li::before { border: 3px solid var(--fg); border-radius: 3px; background: var(--card); }
-.trail li:nth-child(1)::before { background: var(--r); } .trail li:nth-child(2)::before { background: var(--b); }
-.trail li:nth-child(3)::before { background: var(--o); } .trail li:nth-child(4)::before { background: var(--g); }
-.trail li:nth-child(5)::before { background: var(--y); } .trail li:nth-child(6)::before { background: var(--p); }
-.trail li.now::before { background: var(--r); animation: blinkSq 1.2s steps(2) infinite; }
 @keyframes blinkSq { 50% { background: var(--card); } }
 .skill:hover { border-color: var(--fg); box-shadow: 4px 4px 0 var(--accent); }
 .interest .i-ic { color: var(--accent); }

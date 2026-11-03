@@ -62,10 +62,6 @@
             </span>
           </div>
         </div>
-      </div>
-      <div class="journey">
-        <h3 class="journey-title">My CS journey</h3>
-        <ol class="trail">${S.journey.map(([d, t, s], i) => `<li class="${i === S.journey.length - 1 ? "now" : ""}"><span class="when">${d}</span><b>${esc(t)}</b><em>${esc(s)}</em></li>`).join("")}</ol>
       </div>`;
     },
 
@@ -173,14 +169,14 @@
   };
 
   window.SiteRender = {
-    icon, ART,
+    icon, ART, esc, ext,
     mount(root, cfg = {}) {
       const c = Object.assign({ base: "", order: Object.keys(DEFAULT_TITLES), titles: {}, num: (i) => String(i + 1).padStart(2, "0"), headExtra: () => "" }, cfg);
       root.innerHTML = c.order.map((k, i) => `
         <section class="sec sec-${k}" id="${k}">
           <div class="wrap">
             ${k === "contact" ? "" : `<header class="sec-head"><span class="sec-num">${c.num(i, k)}</span><h2 class="sec-title">${c.titles[k] || DEFAULT_TITLES[k]}</h2>${c.headExtra(k, i)}</header>`}
-            <div class="sec-body">${R[k](c)}</div>
+            <div class="sec-body">${((c.render && c.render[k]) || R[k])(c)}</div>
           </div>
         </section>`).join("");
       this.wire(root);
@@ -205,7 +201,7 @@
         if (v.error) off();
       });
       // reveal on scroll
-      const els = root.querySelectorAll(".sec-head, .entry, .about-grid, .journey, .skill-group, .interest, .quote, .connect");
+      const els = root.querySelectorAll(".sec-head, .entry, .about-grid, .skill-group, .interest, .quote, .connect");
       els.forEach((e) => e.classList.add("rv"));
       if (!("IntersectionObserver" in window)) return els.forEach((e) => e.classList.add("in"));
       const io = new IntersectionObserver((es) => es.forEach((e) => {

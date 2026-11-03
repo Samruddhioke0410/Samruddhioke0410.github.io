@@ -113,8 +113,6 @@ body { background:
 .project-art { background: radial-gradient(ellipse at 50% 40%, color-mix(in srgb, var(--felt) 22%, var(--bg)), var(--bg-2)); }
 .research-media { background: radial-gradient(ellipse at 50% 40%, color-mix(in srgb, var(--felt) 22%, var(--bg)), var(--bg-2)); }
 .award { color: var(--gold); border-color: var(--gold); }
-.trail li::before { border-radius: 50%; box-shadow: inset 0 0 0 2px var(--card); }
-.trail li.now::before { background: var(--accent); }
 .skill { border-radius: 12px; }
 .skill:hover { border-color: var(--gold); }
 .interest { position: relative; text-align: center; }

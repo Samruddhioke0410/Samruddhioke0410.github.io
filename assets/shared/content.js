@@ -25,15 +25,6 @@ window.SITE = {
     chips: ["📍 Ithaca, NY", "🎓 Cornell CS '28 · GPA 3.6", "Seeking SWE internships · Summer 2027"],
   },
 
-  journey: [
-    ["Fall 2024", "Cornell, as a TATA Scholar", "Joined Cornell Blockchain as a full-stack engineer"],
-    ["Jan 2025", "Into the lab", "Undergraduate research on autonomous robot navigation"],
-    ["Summer 2025", "ZetaChain", "SWE intern on distributed cross-chain APIs"],
-    ["Jan 2026", "Algo Trading Club", "Director of Data & Infrastructure"],
-    ["Spring 2026", "Teaching LLMs", "TA for the Large Language Models course"],
-    ["May 2026", "Founded I Can't Tell Anyone", "Full-stack AI social platform, 160+ users"],
-    ["Now", "CHI '27 under review", "TA for ML & Embedded Systems · looking for Summer 2027"],
-  ],
 
   research: [{
     role: "Undergraduate Researcher",
@@ -141,6 +132,15 @@ window.SITE = {
       ],
       tags: ["Python", "XGBoost", "LightGBM", "Kafka", "FastAPI", "Prometheus"],
     },
+    // BME project: fill this in and uncomment. art can be "podcast", "drums", "candles", or "line".
+    // {
+    //   title: "",
+    //   kicker: "",
+    //   art: "line",
+    //   idea: "",
+    //   built: [""],
+    //   tags: [],
+    // },
   ],
 
   leadership: [
