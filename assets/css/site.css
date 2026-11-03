@@ -195,9 +195,9 @@ body { background: var(--paper), var(--bg); }
 
 /* ---------- the quote, on a painted band ---------- */
 .quote-band { position: relative; isolation: isolate; overflow: hidden; display: grid; place-items: center; min-height: min(80vh, 700px); margin-top: clamp(90px, 12vw, 140px); padding: 90px 20px; text-align: center; }
-.qb-scene { position: absolute; inset: 0; z-index: -2; background: url("../../assets/img/scenes/lantern-lake.jpg") center 60% / cover;
+.qb-scene { position: absolute; inset: 0; z-index: -2; background: url("../img/scenes/lantern-lake.jpg") center 60% / cover;
   -webkit-mask-image: linear-gradient(transparent, #000 16%, #000 84%, transparent); mask-image: linear-gradient(transparent, #000 16%, #000 84%, transparent); }
-[data-theme="dark"] .qb-scene { background-image: url("../../assets/img/scenes/firefly-forest.jpg"); }
+[data-theme="dark"] .qb-scene { background-image: url("../img/scenes/firefly-forest.jpg"); }
 .qb-scene::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(14, 14, 18, .5), rgba(14, 14, 18, .12) 75%); }
 .qb-glow { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 .qb-quote { max-width: 920px; margin: 0; color: #fff; }
@@ -209,7 +209,7 @@ body { background: var(--paper), var(--bg); }
 /* ---------- contact: hot chocolate in the snow ---------- */
 .sec-contact { position: relative; isolation: isolate; overflow: hidden; padding: 140px 0 110px; color: #fff7f0; }
 .sec-contact::before { content: ""; position: absolute; inset: 0; z-index: -2;
-  background: linear-gradient(rgba(14, 14, 18, .55), rgba(14, 14, 18, .9)), url("../../assets/img/scenes/himalaya-dusk.jpg") center 30% / cover;
+  background: linear-gradient(rgba(14, 14, 18, .55), rgba(14, 14, 18, .9)), url("../img/scenes/himalaya-dusk.jpg") center 30% / cover;
   -webkit-mask-image: linear-gradient(transparent, #000 18%); mask-image: linear-gradient(transparent, #000 18%); }
 .snow { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
 .sec-contact .wrap { position: relative; z-index: 1; }
@@ -258,3 +258,4 @@ body { background: var(--paper), var(--bg); }
   .pc-front p { font-size: .76rem; }
   .connect-grid { grid-template-columns: 1fr; }
 }
+.about-actions .socials { margin-left: 0; }

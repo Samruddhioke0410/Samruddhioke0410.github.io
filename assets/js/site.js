@@ -4,7 +4,7 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const S = window.SITE;
-  const BASE = document.documentElement.dataset.base ?? "../../";
+  const BASE = document.documentElement.dataset.base ?? "";
   const dark = () => document.documentElement.dataset.theme === "dark";
   const cssVar = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
   const PIG = ["--p1", "--p2", "--p3", "--p4", "--p5", "--p6", "--p7"];
@@ -82,7 +82,6 @@
           <a href="mailto:${S.email}" class="connect-card"><span>Email</span><b>${S.email}</b></a>
           ${ext(S.linkedin, `<span>LinkedIn</span><b>in/samruddhi-oke ↗</b>`, "connect-card")}
           ${ext(S.github, `<span>GitHub</span><b>Samruddhioke0410 ↗</b>`, "connect-card")}
-          <a href="${c.base}${S.resume}" download class="connect-card connect-hot"><span>Resume</span><b>Download PDF ↓</b></a>
         </div>
       </div>
       <div class="mug-wrap">${MUG}</div>
@@ -129,6 +128,7 @@
   SiteRender.mount($("#content"), {
     base: BASE,
     titles: { beyond: "Off the clock", contact: "Contact" },
+    resumeInAbout: false,
     render: { beyond, contact },
   });
   SiteRender.navSpy($(".menu"));

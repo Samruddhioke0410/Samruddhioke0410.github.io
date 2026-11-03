@@ -53,8 +53,8 @@
           ${a.body.map((p) => `<p>${p}</p>`).join("")}
           <ul class="chips">${a.chips.map((x, i) => `<li class="${i === a.chips.length - 1 ? "chip-hot" : ""}">${x}</li>`).join("")}</ul>
           <div class="about-actions">
-            <a href="${c.base}${S.resume}" download class="btn btn-solid">Download resume</a>
-            <a href="${c.base}${S.resume}" target="_blank" rel="noopener" class="btn btn-ghost">View resume ↗</a>
+            ${c.resumeInAbout === false ? "" : `<a href="${c.base}${S.resume}" download class="btn btn-solid">Download resume</a>
+            <a href="${c.base}${S.resume}" target="_blank" rel="noopener" class="btn btn-ghost">View resume ↗</a>`}
             <span class="socials">
               ${ext(S.github, '<i class="devicon-github-original"></i>', "social")}
               ${ext(S.linkedin, '<i class="devicon-linkedin-plain"></i>', "social")}
