@@ -205,10 +205,14 @@
       const m = Math.min(s.W, s.H);
       return bloomLayers(b.x * s.W, b.y * s.H, b.r * m, b.r * m * (b.squash || 1), b.seed);
     };
-    s.alpha = () => (dark() ? 0.06 : 0.05);
+    s.alpha = () => (dark() ? 0.055 : 0.045);
     s.add = (b) => {
+      // keep the whole bloom inside the canvas so it never gets cut off square
+      const reach = b.r * Math.min(s.W, s.H) * 1.3;
+      b.x = Math.min(1 - reach / s.W, Math.max(reach / s.W, b.x));
+      b.y = Math.min(1 - reach / s.H, Math.max(reach / s.H, b.y));
       s.items.push(b);
-      if (s.items.length > 36) { s.items.shift(); s.repaint(); return; }
+      if (s.items.length > 30) { s.items.splice(0, 10); s.repaint(); cleanBtn.hidden = false; return; }
       const c = cssVar(b.c), a = s.alpha();
       s.layers(b).forEach((pts) => queue.push({ ctx: s.ctx, pts, c, a }));
       cleanBtn.hidden = false;
@@ -225,6 +229,41 @@
     return s;
   }
 
+  /* torn watercolor paper with a soft shadow, as a background image */
+  function tornPaper(w, h, pad, color, alpha, seed) {
+    const dpr = Math.min(devicePixelRatio || 1, 2), r = rng(seed);
+    const cv = document.createElement("canvas");
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    const ctx = cv.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const x0 = pad, y0 = pad, x1 = w - pad, y1 = h - pad, pts = [];
+    const p1 = r() * 6, p2 = r() * 6;
+    const edge = (t) => 2 + 2.5 * (Math.sin(t * 0.045 + p1) + Math.sin(t * 0.13 + p2) + 2) / 2 + r() * 2.6 + (r() < 0.03 ? 4 : 0);
+    let t = 0;
+    for (let x = x0; x < x1; x += 4, t += 4) pts.push([x, y0 + edge(t)]);
+    for (let y = y0; y < y1; y += 4, t += 4) pts.push([x1 - edge(t), y]);
+    for (let x = x1; x > x0; x -= 4, t += 4) pts.push([x, y1 - edge(t)]);
+    for (let y = y1; y > y0; y -= 4, t += 4) pts.push([x0 + edge(t), y]);
+    ctx.shadowColor = "rgba(40, 20, 60, .3)"; ctx.shadowBlur = 26 * dpr; ctx.shadowOffsetY = 10 * dpr;
+    fill(ctx, pts, color, alpha);
+    ctx.shadowColor = "transparent";
+    // a little paper grain
+    ctx.globalCompositeOperation = "source-atop";
+    for (let i = 0; i < (w * h) / 900; i++) {
+      ctx.globalAlpha = 0.05 + r() * 0.05;
+      ctx.fillStyle = r() < 0.5 ? "#8a7a90" : "#ffffff";
+      ctx.fillRect(x0 + r() * (x1 - x0), y0 + r() * (y1 - y0), 1.2, 1.2);
+    }
+    ctx.globalCompositeOperation = "source-over"; ctx.globalAlpha = 1;
+    return `url(${cv.toDataURL()})`;
+  }
+  function papers() {
+    const w = $(".wash");
+    w.style.setProperty("--torn", tornPaper(w.offsetWidth, w.offsetHeight, 22, cssVar("--bg"), 0.9, 11));
+    const st = $("#stage");
+    st.style.setProperty("--torn", tornPaper(st.offsetWidth * 1.1 + 44, st.offsetHeight * 1.08 + 44, 22, "#fffaf2", 1, 29));
+  }
+
   /* =========================================================
      Cover: painted scenes behind, my photo painted in front
      ========================================================= */
@@ -233,7 +272,7 @@
     dark: [["galaxy-lake", "Galaxy lake", "50% 60%"], ["firefly-forest", "Firefly creek", "50% 50%"], ["blossom-swirl", "Blossom night", "50% 40%"]],
   };
   const scenesEl = $("#scenes"), dotsEl = $("#sceneDots");
-  let sceneIdx = 0, sceneTimer = 0;
+  let sceneIdx = 0, sceneTimer = 0, playing = false;
   function buildScenes() {
     const set = SCENES[dark() ? "dark" : "light"];
     scenesEl.innerHTML = set.map(([f, , pos], i) =>
@@ -252,7 +291,7 @@
   }
   function autoScenes() {
     clearInterval(sceneTimer);
-    if (!reduce) sceneTimer = setInterval(() => showScene(sceneIdx + 1), 11000);
+    if (!reduce && !playing) sceneTimer = setInterval(() => showScene(sceneIdx + 1), 11000);
   }
   buildScenes();
 
@@ -336,16 +375,16 @@
     const a = at ? Math.atan2(at.y - 0.5, at.x - 0.5) + (Math.random() - 0.5) * 0.6 : Math.random() * Math.PI * 2;
     const d = 0.33 + Math.random() * 0.12;
     behind.add({ x: 0.5 + Math.cos(a) * d, y: 0.5 + Math.sin(a) * d * 1.05, r: big ? 0.15 : 0.08 + Math.random() * 0.05, c: pick(drum), seed: seed() });
-    // on the photo: near where you tapped, or along its edges, never over my face
-    let x, y;
-    if (at) { x = at.x; y = at.y; }
-    else {
-      const side = Math.floor(Math.random() * 4);
-      x = side === 0 ? 0.04 + Math.random() * 0.14 : side === 1 ? 0.82 + Math.random() * 0.14 : 0.1 + Math.random() * 0.8;
-      y = side === 2 ? 0.88 + Math.random() * 0.1 : side === 3 ? 0.62 + Math.random() * 0.34 : 0.45 + Math.random() * 0.5;
+    // on the paper: where you tapped, otherwise only along the paper's border so the photo stays clean
+    if (at) {
+      // splash canvas is the paper (photo + 5-6% margin); map the tap into it
+      onTop.add({ x: (at.x + 0.06) / 1.12, y: (at.y + 0.05) / 1.1, r: 0.05, c: pick(drum), seed: seed() });
+    } else if (big || Math.random() < 0.35) {
+      const side = Math.random();
+      const x = side < 0.35 ? 0.02 + Math.random() * 0.06 : side < 0.7 ? 0.92 + Math.random() * 0.06 : 0.1 + Math.random() * 0.8;
+      const y = side < 0.7 ? 0.4 + Math.random() * 0.56 : 0.93 + Math.random() * 0.05;
+      onTop.add({ x, y, r: 0.035 + Math.random() * 0.025, c: pick(drum), seed: seed() });
     }
-    if (Math.hypot(x - 0.5, y - 0.3) < 0.2) y = 0.6 + Math.random() * 0.35;
-    onTop.add({ x, y, r: big ? 0.11 : 0.06 + Math.random() * 0.04, c: pick(drum), seed: seed() });
   }
 
   /* =========================================================
@@ -390,7 +429,6 @@
     timers.push(setTimeout(() => {
       splash(drum, at);
       stage.classList.remove("thump"); void stage.offsetWidth; stage.classList.add("thump");
-      if (drum === "crash" && when !== undefined) showScene(sceneIdx + 1, true);
     }, Math.max(0, (t - a.currentTime) * 1000)));
   }
 
@@ -404,23 +442,37 @@
     hit(drum, undefined, { x: Math.min(0.97, Math.max(0.03, x)), y: Math.min(0.97, Math.max(0.03, y)) });
   });
 
-  /* groove: keherwa-flavored 8-beat, two bars */
+  /* groove: keherwa-flavored 8-beat, looping until you stop it.
+     Each new bar moves to the next painting. */
   const groove = $("#groove");
-  let playing = false;
+  let barTimer = 0;
   const BAR = [
     ["kick", "hat", "crash"], ["hat"], ["snare", "hat"], ["hat", "kick"],
     ["kick", "hat"], ["hat", "tom"], ["snare", "hat"], ["tom", "hat"],
   ];
   function play() {
-    const a = audio(), step = 60 / 96 / 2, t0 = a.currentTime + 0.08;
-    playing = true; groove.classList.add("on");
+    const a = audio(), step = 60 / 96 / 2;
+    let bar = 0, next = a.currentTime + 0.08;
+    playing = true; groove.classList.add("on"); scenesEl.classList.add("fast");
+    clearInterval(sceneTimer);
     $(".g-ic", groove).textContent = "■"; $(".g-tx", groove).textContent = "Stop";
-    const seq = [...BAR, ...BAR.map((s, i) => (i === 0 ? s.filter((x) => x !== "crash") : s)), ["crash", "kick"]];
-    seq.forEach((hits, i) => hits.forEach((d) => hit(d, t0 + i * step)));
-    timers.push(setTimeout(stop, (seq.length * step + 0.4) * 1000));
+    const barMs = BAR.length * step * 1000, LEAD = 350;
+    // each bar is queued LEAD ms before it starts, on a steady timer
+    const scheduleBar = () => {
+      if (!playing || !ac) return;
+      next = Math.max(next, ac.currentTime + 0.05);
+      const t0 = next;
+      BAR.forEach((hits, i) => hits.forEach((d) => { if (d !== "crash" || bar % 2 === 0) hit(d, t0 + i * step); }));
+      if (bar > 0) timers.push(setTimeout(() => playing && showScene(sceneIdx + 1), LEAD));
+      bar++; next += BAR.length * step;
+      timers = timers.slice(-40);
+      barTimer = setTimeout(scheduleBar, bar === 1 ? barMs - LEAD : barMs);
+    };
+    scheduleBar();
   }
   function stop() {
-    playing = false; groove.classList.remove("on");
+    playing = false; groove.classList.remove("on"); scenesEl.classList.remove("fast");
+    clearTimeout(barTimer); autoScenes();
     $(".g-ic", groove).textContent = "▶"; $(".g-tx", groove).textContent = "Play a groove";
     timers.forEach(clearTimeout); timers = [];
     if (ac) { ac.close(); ac = null; }
@@ -436,14 +488,14 @@
     const cv = document.createElement("canvas");
     cv.width = W; cv.height = H;
     const ctx = cv.getContext("2d"), R = rng((i + 3) * 7919);
-    const m = Math.min(Math.max(W, H) * 0.3, H * 0.75, 170);
+    const m = Math.min(Math.max(W, H) * 0.2, H * 0.5, 120);
     const left = i % 2 === 0;
     const spots = [
       [left ? 0.02 : 0.98, 0.04, 1, PIG[i % 7]],
       [left ? 0.97 : 0.03, 0.98, 0.8, PIG[(i + 3) % 7]],
       [left ? 0.2 + R() * 0.2 : 0.6 + R() * 0.2, 0.02, 0.45, PIG[(i + 5) % 7]],
     ];
-    const a = dark() ? 0.05 : 0.045;
+    const a = dark() ? 0.03 : 0.024;
     spots.forEach(([x, y, k, c], j) => {
       const col = cssVar(c);
       bloomLayers(x * W, y * H, m * k, m * k * 0.85, (i + 1) * 131 + j * 17, 20).forEach((pts) => fill(ctx, pts, col, a));
@@ -462,19 +514,24 @@
   cards.forEach((c) => {
     const i = +c.style.getPropertyValue("--i");
     c.style.setProperty("--lift", `${Math.abs(i - 2) * 14}px`);
+    c.addEventListener("pointerleave", () => c.blur());
     c.addEventListener("click", (e) => {
-      if (e.target.closest("a")) return;
+      if (e.target.closest("a") || matchMedia("(hover: hover)").matches) return;
       const was = c.classList.contains("active");
       cards.forEach((x) => x.classList.remove("active"));
       if (!was) c.classList.add("active");
     });
   });
   function deal() {
-    cards.forEach((c) => c.classList.remove("dealt", "active"));
+    cards.forEach((c) => c.classList.remove("dealt", "active", "settled"));
     void hand.offsetWidth;
-    cards.forEach((c, i) => setTimeout(() => c.classList.add("dealt"), reduce ? 0 : 140 + i * 170));
+    cards.forEach((c, i) => {
+      setTimeout(() => c.classList.add("dealt"), reduce ? 0 : 140 + i * 170);
+      setTimeout(() => c.classList.add("settled"), reduce ? 0 : 1100 + i * 170);
+    });
   }
-  if (reduce || !("IntersectionObserver" in window)) cards.forEach((c) => c.classList.add("dealt"));
+  document.addEventListener("click", (e) => { if (!e.target.closest(".pcard")) cards.forEach((x) => x.classList.remove("active")); });
+  if (reduce || !("IntersectionObserver" in window)) cards.forEach((c) => c.classList.add("dealt", "settled"));
   else {
     const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) { deal(); io.disconnect(); } }, { threshold: 0.35 });
     io.observe(hand);
@@ -697,7 +754,7 @@
   function layout() {
     sizePortrait(); paintIn(true);
     behind.repaint(); onTop.repaint();
-    seedMotes(); seedSnow(); washAll();
+    seedMotes(); seedSnow(); washAll(); papers();
   }
   let lastW = innerWidth;
   addEventListener("resize", () => {
@@ -705,11 +762,11 @@
     layout.t = setTimeout(() => { if (innerWidth !== lastW) { lastW = innerWidth; layout(); } else { cup = mugTop(); } }, 180);
   });
   addEventListener("themechange", () => {
-    buildScenes(); behind.repaint(); onTop.repaint(); seedMotes(); washAll();
+    buildScenes(); behind.repaint(); onTop.repaint(); seedMotes(); washAll(); papers();
     if (photo.complete && photo.naturalWidth) composite();
     if (reduce) { drawMotes(0); }
   });
-  seedMotes(); seedSnow();
-  const ready = () => { seedMotes(); seedSnow(); washAll(); if (reduce) drawMotes(0); };
+  seedMotes(); seedSnow(); papers();
+  const ready = () => { seedMotes(); seedSnow(); washAll(); papers(); if (reduce) drawMotes(0); };
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(ready); else addEventListener("load", ready);
 })();
