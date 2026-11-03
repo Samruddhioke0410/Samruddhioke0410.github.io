@@ -82,7 +82,23 @@ window.SITE = {
       dates: "Spring 2026 – Present",
       mark: "TA",
       logo: "assets/img/logos/cornell.png",
-      courses: [["Spring 2026", "Large Language Models", "llm"], ["Fall 2026", "Machine Learning", "ml"], ["Fall 2026", "Embedded Systems", "chip"]],
+      courses: [
+        ["Spring 2026", "Large Language Models", "llm", [
+          "Wrote the weekly assignments and helped write the exams.",
+          "Graded assignments and exams.",
+          "Held weekly office hours.",
+        ]],
+        ["Fall 2026", "Machine Learning", "ml", [
+          "Designed homeworks and course projects.",
+          "Ran the course's Kaggle competition.",
+          "Graded homeworks, projects, and prelims, and held office hours.",
+        ]],
+        ["Fall 2026", "Embedded Systems", "chip", [
+          "Built new Raspberry Pi curriculum for the course.",
+          "Made lecture slides and led discussion sections.",
+          "Graded coursework and held office hours.",
+        ]],
+      ],
     },
   ],
 

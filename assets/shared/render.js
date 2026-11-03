@@ -108,9 +108,11 @@
         <div class="entry-body">
           <header><div><h3>${e.role}</h3><p class="org">${org(e.org, e.orgUrl)}</p></div><span class="dates">${e.dates}</span></header>
           ${e.courses ? `
-          <p class="ta-count"><b>${e.courses.length}</b> courses <span>·</span> <b>${new Set(e.courses.map((x) => x[0])).size}</b> semesters</p>
-          <ul class="courses">${e.courses.map(([t, n, ic]) => `
-            <li><svg viewBox="0 0 40 40" class="course-ic" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${COURSE_IC[ic] || ""}</svg><span>${t}</span><b>${n}</b></li>`).join("")}</ul>` : ""}
+          <ul class="courses">${e.courses.map(([t, n, ic, did]) => `
+            <li>
+              <svg viewBox="0 0 40 40" class="course-ic" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${COURSE_IC[ic] || ""}</svg>
+              <div><span>${t}</span><b>${n}</b>${did ? `<ul class="course-did">${did.map((d) => `<li>${d}</li>`).join("")}</ul>` : ""}</div>
+            </li>`).join("")}</ul>` : ""}
           ${bullets(e.bullets)}${tags(e.tags)}${btnLinks(e.links)}
         </div>
       </article>`).join("")}</div>`;
