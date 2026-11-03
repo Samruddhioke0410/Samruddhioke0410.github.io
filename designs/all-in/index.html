@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Samruddhi Oke · All In</title>
+  <meta name="description" content="Samruddhi Oke: Cornell CS '28, software engineer and AI/ML researcher." />
+  <script>(function(){var t=new URLSearchParams(location.search).get("theme");try{t=t||localStorage.getItem("so-theme")}catch(e){}document.documentElement.dataset.theme=t==="dark"?"dark":"light"})()</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css" />
+  <link rel="stylesheet" href="../../assets/shared/base.css" />
+  <link rel="stylesheet" href="all-in.css" />
+</head>
+<body>
+<header class="topnav" id="nav">
+  <a href="#top" class="logo" aria-label="Top"><span class="lg-s">♠</span>SO</a>
+  <nav class="menu">
+    <a href="#about">About</a><a href="#research">Research</a><a href="#experience">Experience</a>
+    <a href="#projects">Projects</a><a href="#leadership">Leadership</a><a href="#skills">Skills</a>
+    <a href="#beyond">Beyond</a><a href="#contact">Contact</a>
+  </nav>
+  <div class="right">
+    <a href="../index.html" class="design-switch">all designs</a>
+    <button class="theme-toggle" data-theme-toggle>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="cover" id="top">
+  <p class="table-label">Table 01 · No-limit hold'em · Ithaca, NY</p>
+  <h1 class="name">Samruddhi <em>Oke</em></h1>
+  <p class="sub">Software engineer &amp; AI/ML researcher · Cornell CS '28</p>
+
+  <div class="table">
+    <div class="felt">
+      <div class="deck" id="deck" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="hand" id="hand" aria-label="A royal flush of roles"></div>
+      <p class="hand-name" id="handName"><span>Royal flush</span> · the hand you want at your table</p>
+      <div class="chips-row" aria-hidden="false">
+        <div class="stack" style="--c:var(--chip-red)"><span class="pile"><i></i><i></i><i></i><i></i><i></i></span><b>160+</b><small>users</small></div>
+        <div class="stack" style="--c:var(--chip-blue)"><span class="pile"><i></i><i></i><i></i><i></i></span><b>&lt;25ms</b><small>inference</small></div>
+        <div class="stack" style="--c:var(--chip-black)"><span class="pile"><i></i><i></i><i></i><i></i><i></i><i></i></span><b>−56%</b><small>latency</small></div>
+        <div class="stack" style="--c:var(--chip-gold)"><span class="pile"><i></i><i></i><i></i></span><b>CHI '27</b><small>under review</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <button class="btn btn-ghost" id="dealAgain">↻ Deal again</button>
+    <a href="#projects" class="btn btn-solid">See my work</a>
+    <a href="../../assets/Samruddhi_Oke_Resume.pdf" download class="btn btn-ghost">Resume ↓</a>
+  </div>
+  <p class="hint">psst: tap a card to see where I played it</p>
+</section>
+
+<div class="ticker" aria-label="Highlights">
+  <div class="tape" id="tape"></div>
+</div>
+
+<main id="content"></main>
+
+<footer class="site-footer">
+  <p>© <span id="yr"></span> Samruddhi Oke · always know when to hold 'em</p>
+  <p>♠ ♥ ♦ ♣</p>
+</footer>
+
+<script src="../../assets/shared/content.js"></script>
+<script src="../../assets/shared/render.js"></script>
+<script src="all-in.js"></script>
+</body>
+</html>

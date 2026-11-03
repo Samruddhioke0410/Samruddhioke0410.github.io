@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Samruddhi Oke · Cubed</title>
+  <meta name="description" content="Samruddhi Oke: Cornell CS '28, software engineer and AI/ML researcher." />
+  <script>(function(){var t=new URLSearchParams(location.search).get("theme");try{t=t||localStorage.getItem("so-theme")}catch(e){}document.documentElement.dataset.theme=t==="dark"?"dark":"light"})()</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css" />
+  <link rel="stylesheet" href="../../assets/shared/base.css" />
+  <link rel="stylesheet" href="cubed.css" />
+</head>
+<body>
+<header class="topnav" id="nav">
+  <a href="#top" class="logo" aria-label="Top"><i></i><i></i><i></i><i></i><span>SO</span></a>
+  <nav class="menu">
+    <a href="#about">About</a><a href="#research">Research</a><a href="#experience">Experience</a>
+    <a href="#projects">Projects</a><a href="#leadership">Leadership</a><a href="#skills">Skills</a>
+    <a href="#beyond">Beyond</a><a href="#contact">Contact</a>
+  </nav>
+  <div class="right">
+    <a href="../index.html" class="design-switch">all designs</a>
+    <button class="theme-toggle" data-theme-toggle>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="cover" id="top">
+  <div class="cover-grid">
+    <div class="cover-copy">
+      <p class="eyebrow">// 3×3×3 · 43 quintillion states · one solution</p>
+      <h1 class="name">
+        <span class="first">Samruddhi</span>
+        <span class="last"><b style="--c:var(--r)">O</b><b style="--c:var(--b)">K</b><b style="--c:var(--y)">E</b></span>
+      </h1>
+      <p class="pitch">Software engineer &amp; AI/ML researcher at <b>Cornell</b>. I turn messy, many-sided problems into systems that click into place: <span class="hl">robots</span>, <span class="hl">real-time infra</span>, and <span class="hl">products people use</span>.</p>
+      <div class="cta">
+        <a href="#projects" class="btn btn-solid">See my work</a>
+        <a href="../../assets/Samruddhi_Oke_Resume.pdf" download class="btn btn-ghost">Resume ↓</a>
+      </div>
+
+      <div class="timer-panel">
+        <div class="timer-top">
+          <span class="clock" id="clock">00:00.00</span>
+          <span class="state" id="cubeState">SOLVED</span>
+        </div>
+        <p class="scramble" id="scramble">Drag the cube to spin it · tap a center to jump to that section</p>
+        <div class="timer-btns">
+          <button class="btn btn-sm btn-solid" id="btnScramble">Scramble</button>
+          <button class="btn btn-sm btn-ghost" id="btnSolve" disabled>Solve</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cube-stage" id="stage">
+      <div class="cube-shadow"></div>
+      <div class="cube" id="cube"></div>
+    </div>
+  </div>
+
+  <ul class="stat-row">
+    <li style="--c:var(--r)"><b>160+</b><span>users on my startup</span></li>
+    <li style="--c:var(--b)"><b>&lt;25ms</b><span>model inference</span></li>
+    <li style="--c:var(--g)"><b>−56%</b><span>API latency @ ZetaChain</span></li>
+    <li style="--c:var(--o)"><b>CHI '27</b><span>paper under review</span></li>
+    <li style="--c:var(--y)"><b>Top 1%</b><span>TATA Scholar</span></li>
+  </ul>
+</section>
+
+<main id="content"></main>
+
+<footer class="site-footer">
+  <p>© <span id="yr"></span> Samruddhi Oke · solved, scrambled, solved again</p>
+  <p>F R U R' U' F'</p>
+</footer>
+
+<script src="../../assets/shared/content.js"></script>
+<script src="../../assets/shared/render.js"></script>
+<script src="cubed.js"></script>
+</body>
+</html>

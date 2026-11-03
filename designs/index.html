@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pick a design · Samruddhi Oke</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg: #f6f3ec; --fg: #1d1b18; --muted: #6b645a; --line: rgba(0,0,0,.1); --card: #fff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: Figtree, system-ui, sans-serif; }
+    header { max-width: 1240px; margin: 0 auto; padding: 56px 24px 24px; }
+    h1 { font-family: "Instrument Serif", serif; font-weight: 400; font-size: clamp(2.6rem, 6vw, 4.4rem); margin: 0; line-height: 1; }
+    h1 em { color: #c8102e; }
+    header p { color: var(--muted); max-width: 640px; }
+    .grid { max-width: 1240px; margin: 0 auto; padding: 0 24px 70px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
+    .opt { background: var(--card); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; transition: transform .25s, box-shadow .25s; }
+    .opt:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -28px rgba(0,0,0,.35); }
+    .frame { position: relative; aspect-ratio: 16/10; overflow: hidden; background: #ddd; border-bottom: 1px solid var(--line); }
+    .frame iframe { position: absolute; top: 0; left: 0; width: 1440px; height: 900px; border: 0; transform-origin: 0 0; pointer-events: none; }
+    .meta { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .num { font-family: "IBM Plex Mono", monospace; font-size: .74rem; color: var(--muted); }
+    h2 { font-family: "Instrument Serif", serif; font-weight: 400; font-size: 2rem; margin: 0; }
+    .meta p { margin: 0; color: var(--muted); font-size: .95rem; line-height: 1.55; }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 10px; }
+    .row a { font-size: .85rem; font-weight: 600; padding: 9px 16px; border-radius: 999px; border: 1.5px solid var(--fg); color: var(--fg); text-decoration: none; }
+    .row a.go { background: var(--fg); color: var(--bg); }
+    .tag { font-family: "IBM Plex Mono", monospace; font-size: .68rem; padding: 3px 8px; border-radius: 6px; background: var(--bg); align-self: flex-start; }
+    @media (max-width: 820px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Pick a <em>design</em>.</h1>
+    <p>Same content, four personalities. Every new design opens in light mode and has a sun/moon toggle for dark mode. Open one and actually play with the cover.</p>
+  </header>
+  <main class="grid">
+    <article class="opt">
+      <div class="frame"><iframe src="cubed/" loading="lazy" tabindex="-1" title="Cubed preview"></iframe></div>
+      <div class="meta">
+        <span class="num">02 · Rubik's cube</span>
+        <h2>Cubed</h2>
+        <p>Bold Swiss/neo-brutalist. A 3D cube you can drag to spin: each center sticker opens a section. Scramble starts a speedcuber timer; Solve stops it. Sections are color-coded like cube faces.</p>
+        <span class="tag">light default · dark toggle</span>
+        <div class="row"><a class="go" href="cubed/">Open</a><a href="cubed/?theme=dark">Open in dark</a></div>
+      </div>
+    </article>
+    <article class="opt">
+      <div class="frame"><iframe src="all-in/" loading="lazy" tabindex="-1" title="All In preview"></iframe></div>
+      <div class="meta">
+        <span class="num">03 · Poker &amp; trading</span>
+        <h2>All In</h2>
+        <p>Warm card-room elegance. A felt table deals a royal flush of your roles; tap a card to jump to where you played it. Chip stacks hold your stats, and a market ticker scrolls your wins.</p>
+        <span class="tag">light default · dark toggle</span>
+        <div class="row"><a class="go" href="all-in/">Open</a><a href="all-in/?theme=dark">Open in dark</a></div>
+      </div>
+    </article>
+    <article class="opt">
+      <div class="frame"><iframe src="beat-bloom/" loading="lazy" tabindex="-1" title="Beat and Bloom preview"></iframe></div>
+      <div class="meta">
+        <span class="num">04 · Drums &amp; watercolor</span>
+        <h2>Beat &amp; Bloom</h2>
+        <p>Soft editorial on watercolor paper. A playable drum kit (tap or press A S D J K): every hit makes a real synthesized sound and paints a watercolor bloom. "Play a groove" paints by itself.</p>
+        <span class="tag">light default · dark toggle · has sound</span>
+        <div class="row"><a class="go" href="beat-bloom/">Open</a><a href="beat-bloom/?theme=dark">Open in dark</a></div>
+      </div>
+    </article>
+    <article class="opt">
+      <div class="frame"><iframe src="../" loading="lazy" tabindex="-1" title="Night Cabin preview"></iframe></div>
+      <div class="meta">
+        <span class="num">01 · the original</span>
+        <h2>Night Cabin</h2>
+        <p>The first version: illustrated night landscape with a cabin, lightsaber section dividers, and a poker-hand of hobbies.</p>
+        <span class="tag">dark only (for now)</span>
+        <div class="row"><a class="go" href="../">Open</a></div>
+      </div>
+    </article>
+  </main>
+  <script>
+    const fit = () => document.querySelectorAll(".frame").forEach((f) => {
+      f.querySelector("iframe").style.transform = `scale(${f.clientWidth / 1440})`;
+    });
+    addEventListener("resize", fit); fit();
+  </script>
+</body>
+</html>
