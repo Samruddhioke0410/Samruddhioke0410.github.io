@@ -288,3 +288,14 @@ body { background: var(--paper), var(--bg); }
 .about-copy .lead { padding: 0; }
 .xp-ta .course-did li { padding: 0 0 0 18px; border: 0; border-radius: 0; background: none; }
 .research-media video { object-position: 68% 50%; }
+
+/* ---------- project screenshots ---------- */
+.project-art.has-shot { padding: clamp(16px, 2.4vw, 26px); }
+.project-shot { width: 100%; height: auto; border-radius: 14px; box-shadow: 0 22px 40px -24px rgba(30, 15, 50, .55), 0 0 0 1px var(--line); transition: transform .4s var(--ease); }
+.project:hover .project-shot { transform: translateY(-4px) scale(1.015); }
+.project-art.has-shot .award { z-index: 1; }
+/* screenshot projects: big image banner on top, write-up below */
+.project.project-wide, .project.project-wide:nth-child(even) { grid-template-columns: 1fr; }
+.project-wide .project-art, .project-wide:nth-child(even) .project-art { order: 0; min-height: 0; padding: clamp(16px, 2.6vw, 30px) clamp(16px, 2.6vw, 30px) 0; background: none; }
+.project-wide .project-shot { max-width: 980px; margin: 0 auto; }
+.project-wide .project-art .award { top: clamp(24px, 3.4vw, 40px); left: clamp(24px, 3.4vw, 40px); }

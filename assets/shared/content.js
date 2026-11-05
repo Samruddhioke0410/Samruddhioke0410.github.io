@@ -107,6 +107,7 @@ window.SITE = {
       title: "Legal Eagle",
       kicker: "Multimodal RAG · Generative AI · Team of 2",
       art: "podcast",
+      image: "assets/img/projects/legal-eagle.jpg",
       idea: "Legal filings are dense, and almost nobody wants to read them. Legal Eagle turns them into a dual-host podcast you can actually listen to, with every line grounded in the source documents.",
       built: [
         "Designed a multimodal RAG retrieval architecture that converts legal filings into podcasts, <b>cutting LLM token costs 52.5%</b>.",
@@ -119,6 +120,7 @@ window.SITE = {
       title: "AirDrum Duel",
       kicker: "Embedded Systems · Real-Time · Team of 2",
       art: "drums",
+      image: "assets/img/projects/airdrum-duel.jpg",
       idea: "No drum kit, no problem. Two players swing motion-sensing boards like drumsticks and battle beat for beat. The hard part is making an invisible drum feel instant on a tiny microcontroller.",
       built: [
         "Wrote bare-metal firmware in <b>Embedded C and ARM assembly</b> for the FRDM-KL46Z (Cortex-M0+), splitting the game into <b>six concurrent stages</b> from sensor read to scoring.",
@@ -132,6 +134,7 @@ window.SITE = {
       title: "Clout Trader",
       kicker: "Prediction Market · NLP · Web3",
       art: "candles",
+      image: "assets/img/projects/clout-trader.jpg",
       award: "🥈 2nd place · UPenn Blockchain Hackathon",
       idea: "What if you could trade an influencer's momentum the way you trade a stock? Clout Trader is a prediction market that turns social buzz into on-chain trading signals.",
       built: [
@@ -144,6 +147,7 @@ window.SITE = {
       title: "Bitcoin Price Prediction",
       kicker: "Production ML · Streaming",
       art: "line",
+      image: "assets/img/projects/bitcoin-price-prediction.jpg",
       idea: "Most price-prediction projects stop at a notebook. This one runs as a production system: live market data streams in, a model serves predictions in real time, and monitoring flags when the model starts to drift.",
       built: [
         "Architected a real-time Kafka/PostgreSQL pipeline with <b>&lt;5 s streaming latency</b> over large-scale market data.",

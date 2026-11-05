@@ -118,10 +118,10 @@
       </article>`).join("")}</div>`;
     },
 
-    projects() {
+    projects(c) {
       return `<div class="projects">${S.projects.map((p, i) => `
-      <article class="entry project" data-i="${i}">
-        <div class="project-art">${ART[p.art] || ""}${p.award ? `<span class="award">${p.award}</span>` : ""}</div>
+      <article class="entry project${p.image ? " project-wide" : ""}" data-i="${i}">
+        <div class="project-art${p.image ? " has-shot" : ""}">${p.image ? `<img class="project-shot" src="${c.base}${p.image}" alt="${esc(p.title)} app screenshot" loading="lazy" width="1400" height="655" />` : ART[p.art] || ""}${p.award ? `<span class="award">${p.award}</span>` : ""}</div>
         <div class="project-body">
           <p class="kicker">${p.kicker}</p>
           <h3>${p.title}</h3>
