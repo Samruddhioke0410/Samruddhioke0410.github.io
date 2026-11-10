@@ -5,7 +5,7 @@
    To keep your own visits out of the stats, open the site once with ?me=1 on each browser you use
    (https://samruddhioke0410.github.io/?me=1). Use ?me=0 to undo. */
 (function () {
-  const GA_ID = "";
+  const GA_ID = "G-CE6DDZQDYN";
 
   try {
     const me = new URLSearchParams(location.search).get("me");
